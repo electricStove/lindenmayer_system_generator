@@ -1,7 +1,6 @@
-import sys
 import tkinter as tk
-# from turtle import ScrolledCanvas, RawTurtle, TurtleScreen
 import turtle
+# from main_menu import MainMenu
 
 def generate_lindenmayer():
     t = turtle.Turtle()
