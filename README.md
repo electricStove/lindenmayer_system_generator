@@ -10,13 +10,27 @@ This is a recreation of an older project I originally built using Unity and C#. 
 
 ## Project Overview
 
+A Lindenmayer System (L-System) is a mathematical framework used to model the growth processes of plants and generate fractal-like patterns. It operates on a set of rules that transform a starting string, or axiom, through recursive rewriting.
+
+### Key Components:
+1. **Alphabet**: A set of symbols (letters) used to represent elements of the system.
+2. **Axiom**: The initial string that serves as the starting point for the pattern.
+3. **Rewriting Rules**: Rules that specify how symbols in the axiom are replaced with new combinations of symbols.
+
+### How It Works:
+1. **Start with the axiom**.
+2. **Apply the rewriting rules** to each symbol in the axiom. If a symbol matches the left-hand side (LHS) of a rule, it is replaced by the right-hand side (RHS) of that rule.
+3. **Repeat the process** for a specified number of generations, creating increasingly complex strings.
+
+Through this iterative process, simple initial strings can evolve into intricate patterns, mimicking natural growth processes like those seen in plants. L-Systems are often visualized using graphics, where the symbols are interpreted as drawing commands.
+
 The Lindenmayer System Generator allows users to:
 - Input a starting axiom (the initial string representing the base state of the system).
 - Define custom rules to evolve the system, where each rule maps a character to a sequence of other characters.
 - Visualize each generation of the system step-by-step using Turtle graphics.
-
+<!--
 A Lindenmayer System (L-System) is a formal grammar used to model the growth of plants and fractals through recursive string rewriting, producing complex patterns from simple rules. The grammar consists of an alphabet of letters and symbols, rewriting rules, and a starting string or axiom. The rules and axiom must consist of letters and symbols from the alphabet, some letters and symbols of the alphabet will have a predefined meaning (like move forward or turn right), every other one will be a user defined rewriting rule. These predefined members of the alphabet will be how the L-System is drawn. Rewriting rules are made up of a left-hand side (LHS) and a right-hand side (RHS). The axiom is iterated through until it finds a letter that matches the LHS of a rule. This letter is then replaced with the RHS of that corresponding rule for the next generation. The LHS of a rule can be a predefined member of the alphabet, this will not change what it does.
-
+-->
 ## Dependencies
 
 This project relies on Python's standard libraries:
