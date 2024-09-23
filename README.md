@@ -2,7 +2,7 @@
 
 A fun side project that uses Python's `Tkinter` and `Turtle` libraries to create and visualize Lindenmayer Systems (L-Systems). These systems, often used to generate fractals, can be customized by defining a starting axiom and some rules.
 
-This is a recreation of an older project I originally built using Unity and C#. This version relies solely on Python's standard libraries.
+This is a recreation of an older project I originally built using Unity and C#. This version relies solely on Python's standard library.
 
 ## References
 - [L-System User Notes](https://paulbourke.net/fractals/lsys/) by Paul Borke
@@ -15,7 +15,7 @@ The Lindenmayer System Generator allows users to:
 - Define custom rules to evolve the system, where each rule maps a character to a sequence of other characters.
 - Visualize each generation of the system step-by-step using Turtle graphics.
 
-A Lindenmayer System (L-System) is a formal grammar used to model the growth of plants and fractals through recursive string rewriting, producing complex patterns from simple rules.
+A Lindenmayer System (L-System) is a formal grammar used to model the growth of plants and fractals through recursive string rewriting, producing complex patterns from simple rules. The grammar consists of an alphabet of letters and symbols, rewriting rules, and a starting string or axiom. The rules and axiom must consist of letters and symbols from the alphabet, some letters and symbols of the alphabet will have a predefined meaning (like move forward or turn right), every other one will be a user defined rewriting rule. These predefined members of the alphabet will be how the L-System is drawn. Rewriting rules are made up of a left-hand side (LHS) and a right-hand side (RHS). The axiom is iterated through until it finds a letter that matches the LHS of a rule. This letter is then replaced with the RHS of that corresponding rule for the next generation. The LHS of a rule can be a predefined member of the alphabet, this will not change what it does.
 
 ## Dependencies
 
