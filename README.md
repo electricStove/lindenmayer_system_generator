@@ -22,7 +22,7 @@ A Lindenmayer System (L-System) is a mathematical framework used to model the gr
 2. **Apply the rewriting rules** to each symbol in the axiom. If a symbol matches the left-hand side (LHS) of a rule, it is replaced by the right-hand side (RHS) of that rule.
 3. **Repeat the process** for a specified number of generations, creating increasingly complex strings.
 
-Through this iterative process, simple initial strings can evolve into intricate patterns, mimicking natural growth processes like those seen in plants. L-Systems are often visualized using graphics, where the symbols are interpreted as drawing commands.
+Through this iterative process, simple initial strings can evolve into intricate patterns, mimicking natural growth processes like those seen in plants. L-Systems are also commonly used to generate fractals.
 
 The Lindenmayer System Generator allows users to:
 - Input a starting axiom (the initial string representing the base state of the system).
