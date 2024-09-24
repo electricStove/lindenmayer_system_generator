@@ -7,14 +7,10 @@ class MainMenu(tk.Tk):
         super().__init__()
         self.num_rules = 0
         self.rule_entries: list[tk.Entry] = []
+        self.accepted_symbols = "+-[]#!@<>&()"
 
         self.title("Lindenmayer System Main Menu")
         self.minsize(width, height)
-
-        # This ensures that no numbers are entered into the Entry widget
-        self.validate_no_numbers = (self.register(lambda input_value: input_value == "" or not input_value.isdigit()), '%S')
-        # This only allows number input and 1 decimal to be added to the entry widget
-        self.validate_number_only = (self.register(lambda input_value: input_value == "" or input_value.replace(".", "", 1).isdigit() and (input_value.count('.') <= 1)), '%P')
 
         self.starting_entry, self.starting_variables = self.create_UI()
 
@@ -28,13 +24,13 @@ class MainMenu(tk.Tk):
             curr_label = tk.Label(text=(label_list[i] + " ="), anchor='ne')
             curr_label.grid(column=3, row=i, sticky='nsew')
 
-            curr_entry = tk.Entry(width=10, validate='key', validatecommand=self.validate_number_only) 
+            curr_entry = tk.Entry(width=10, validate='key', validatecommand=(self.register(self.validate_only_numbers), '%P'))
             curr_entry.insert(0, str(default_values[i]))
             curr_entry.grid(column=4, row=i)
             entry_dict[label_list[i]] = curr_entry
 
         # Entries
-        start_axiom_entry = tk.Entry(width=50, validate='key', validatecommand=self.validate_no_numbers)
+        start_axiom_entry = tk.Entry(width=50, validate='key', validatecommand=(self.register(self.validate_axiom), '%S'))
         start_axiom_entry.grid(column=2, row=1, padx=10)#, sticky='nsew')
 
         # Buttons
@@ -53,7 +49,7 @@ class MainMenu(tk.Tk):
     # Append the entry box object to rule_entry list for later access
     def add_new_rule(self):
         self.num_rules += 1
-        new_entry = tk.Entry(width=20, validate='key', validatecommand=self.validate_no_numbers)
+        new_entry = tk.Entry(width=20, validate='key', validatecommand=(self.register(self.validate_rule), '%S', '%P'))
         new_entry.grid(column=0, row=self.num_rules, columnspan=2, sticky='nsew')
         self.rule_entries.append(new_entry)
 
@@ -78,3 +74,29 @@ class MainMenu(tk.Tk):
 
     def get_starting_variables(self) -> dict[str, str]:
         return {i : self.starting_variables[i].get() for i in self.starting_variables}
+    
+    def validate_axiom(self, input_key: str):
+        if input_key == "":
+            return True
+        else:
+            return input_key.isalpha() or input_key in self.accepted_symbols
+
+    def validate_only_numbers(self, input_str: str):
+        if input_str == "":
+            return True
+        elif input_str.replace(".", "", 1).isdigit() and input_str.count('.') <= 1:
+            return True
+        else:
+            return False
+
+    def validate_rule(self, input_key: str, input_str: str):
+        if input_key.isdigit():
+            return False
+
+        str_len = len(input_str)
+        if input_str == "":
+            return True
+        elif str_len <= 2:
+            return input_str[0].isalpha() and (input_str[1] == "=" if str_len == 2 else True)
+        else:
+            return input_key.isalpha() or input_key in self.accepted_symbols
