@@ -1,45 +1,28 @@
 import turtle
 
-_LINE_LENGTH = 2
-_LINE_LENGTH_SCALE = 1.2
-_LINE_WIDTH = 1
-_LINE_WIDTH_INCREMENT = 1
-_TURN_ANGLE = 90
-_TURN_ANGLE_INCREMENT = 10
-_POSITION_STACK = []
-
 class LindenmayerGenerator(turtle.Turtle):
     def __init__(self, unparsed_rules: list[str], starting_str: str, starting_vars: dict[str, str]):
         super().__init__()
-        _LINE_LENGTH = float(starting_vars["line length"])
-        _LINE_LENGTH_SCALE =  float(starting_vars["line length scale"])
-        _LINE_WIDTH =  float(starting_vars["line width"])
-        _LINE_WIDTH_INCREMENT =  float(starting_vars["line width increment"])
-        _TURN_ANGLE =  float(starting_vars["turn angle"])
-        _TURN_ANGLE_INCREMENT =  float(starting_vars["turn angle increment"])
         turtle.setup()
         turtle.screensize(10000, 10000)
         turtle.tracer(0, 0)
 
         # Initializing rules and axioms
+        self.starting_vars = starting_vars
         self.axiom: str = starting_str
         self.next_axiom: str = ""
         self.rules: dict[str, str] = {}
 
         # Default drawing values
-        self.line_length: float = _LINE_LENGTH
-        self.line_length_scale: float = _LINE_LENGTH_SCALE
-        self.line_width: float = _LINE_WIDTH
-        self.line_width_increment: float = _LINE_WIDTH_INCREMENT
-        self.turn_angle: float = _TURN_ANGLE
-        self.turn_angle_increment: float = _TURN_ANGLE_INCREMENT
-        self.position_stack: list[turtle.Vec2D] = _POSITION_STACK
+        self.line_length: float = float(self.starting_vars["line length"])
+        self.line_length_scale: float =  float(self.starting_vars["line length scale"])
+        self.line_width: float =  float(self.starting_vars["line width"])
+        self.line_width_increment: float =  float(self.starting_vars["line width increment"])
+        self.turn_angle: float =  float(self.starting_vars["turn angle"])
+        self.turn_angle_increment: float =  float(self.starting_vars["turn angle increment"])
+        self.position_stack: list[turtle.Vec2D] = []
 
-        # self.default_rules: list[str] = ['F', 'f', '+', '-', '|',
-        #                                  '[', ']', '#', '!', '@',
-        #                                  '{', '}', '<', '>', '&',
-        #                                  '(', ')']
-
+        # Turn the list of rules into a dictionary with the key as the name and value as the rewriting rule
         self.parse_rules(unparsed_rules)
 
     def run_generator(self):
@@ -67,10 +50,10 @@ class LindenmayerGenerator(turtle.Turtle):
                     self.forward(self.line_length)
                 # Turn left by turning angle
                 case '+':
-                    self.right(self.turn_angle)
+                    self.left(self.turn_angle)
                 # Turn right by turning angle
                 case '-':
-                    self.left(self.turn_angle)
+                    self.right(self.turn_angle)
                 # Reverse direction (ie: turn by 180 degrees)
                 case '|':
                     self.right(180)
@@ -89,21 +72,16 @@ class LindenmayerGenerator(turtle.Turtle):
                 # Draw a dot with line width radius
                 case '@':
                     self.dot(size=round(self.line_width))
-                # # Open a polygon
-                # case '{':
-                #     pass
-                # # Close a polygon and fill it with fill colour
-                # case '}':
-                #     pass
                 # Multiply the line length by the line length scale factor
                 case '<':
                     self.line_length *= self.line_length_scale
                 # Divide the line length by the line length scale factor
                 case '>':
                     self.line_length /= self.line_length_scale
-                # # Swap the meaning of + and -
-                # case '&':
-                #     pass
+                # Swap the meaning of + and -
+                case '&':
+                    self.turn_angle = -self.turn_angle
+                    self.turn_angle_increment = -self.turn_angle_increment
                 # Decrement turning angle by turning angle increment
                 case '(':
                     self.turn_angle -= self.turn_angle_increment
@@ -126,11 +104,11 @@ class LindenmayerGenerator(turtle.Turtle):
         self.reset()
         self.hideturtle()
         self.speed(0)
-        self.setheading(90)
-        self.line_length = _LINE_LENGTH
-        self.line_length_scale = _LINE_LENGTH_SCALE
-        self.line_width = _LINE_WIDTH
-        self.line_width_increment = _LINE_WIDTH_INCREMENT
-        self.turn_angle = _TURN_ANGLE
-        self.turn_angle_increment = _TURN_ANGLE_INCREMENT
-        self.position_stack = _POSITION_STACK
+        self.setheading(0)
+        self.line_length = float(self.starting_vars["line length"])
+        self.line_length_scale =  float(self.starting_vars["line length scale"])
+        self.line_width =  float(self.starting_vars["line width"])
+        self.line_width_increment =  float(self.starting_vars["line width increment"])
+        self.turn_angle =  float(self.starting_vars["turn angle"])
+        self.turn_angle_increment =  float(self.starting_vars["turn angle increment"])
+        self.position_stack = []
