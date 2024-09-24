@@ -7,7 +7,7 @@ class MainMenu(tk.Tk):
         super().__init__()
         self.num_rules = 0
         self.rule_entries: list[tk.Entry] = []
-        self.accepted_symbols = "+-[]#!@<>&()"
+        self.accepted_symbols = "+-|[]#!@<>&()"
 
         self.title("Lindenmayer System Main Menu")
         self.minsize(width, height)
@@ -19,6 +19,7 @@ class MainMenu(tk.Tk):
         label_list = ["line length", "line length scale", "line width", "line width increment", "turn angle", "turn angle increment"]
         default_values = [1, 1.2, 1, 1, 90, 10]
         entry_dict: dict[str, tk.Entry] = {}
+
         # Labels
         for i in range(len(label_list)):
             curr_label = tk.Label(text=(label_list[i] + " ="), anchor='ne')
@@ -42,6 +43,30 @@ class MainMenu(tk.Tk):
 
         generate_button = tk.Button(text="Generate!", command=self.generate_lindenmayer)
         generate_button.grid(column=2, row=0, sticky='nsew', padx=10)
+
+        # Helper labels
+        help_frame = tk.Frame(self, height=999, width=999)
+        help_frame.grid(column=2, row=3, rowspan=16, sticky='n')
+        tk.Label(help_frame, text="Predefined rules:").grid(column=1, row=0, sticky='nsew')
+
+        for i, symbol in enumerate("Ff" + self.accepted_symbols):
+            tk.Label(help_frame, text=symbol, anchor='nw').grid(column=0, row=i + 1, sticky='nsew')
+
+        tk.Label(help_frame, text="- Move forward by 'line length' drawing a line", anchor='nw').grid(column=1, row=1, sticky='nsew')
+        tk.Label(help_frame, text="- Move forward by 'line length' without drawing a line", anchor='nw').grid(column=1, row=2, sticky='nsew')
+        tk.Label(help_frame, text="- Turn right by 'turn angle'", anchor='nw').grid(column=1, row=3, sticky='nsew')
+        tk.Label(help_frame, text="- Turn left by 'turn angle'", anchor='nw').grid(column=1, row=4, sticky='nsew')
+        tk.Label(help_frame, text="- Turn the turtle around (180 degrees)", anchor='nw').grid(column=1, row=5, sticky='nsew')
+        tk.Label(help_frame, text="- Save current position and heading to a stack", anchor='nw').grid(column=1, row=6, sticky='nsew')
+        tk.Label(help_frame, text="- Return to last saved position", anchor='nw').grid(column=1, row=7, sticky='nsew')
+        tk.Label(help_frame, text="- Increment 'line width' by 'line width increment'", anchor='nw').grid(column=1, row=8, sticky='nsew')
+        tk.Label(help_frame, text="- Decrement 'line width' by 'line width increment'", anchor='nw').grid(column=1, row=9, sticky='nsew')
+        tk.Label(help_frame, text="- Draw a dot with radius of 'line width'", anchor='nw').grid(column=1, row=10, sticky='nsew')
+        tk.Label(help_frame, text="- Multiply 'line length' by 'line length scale'", anchor='nw').grid(column=1, row=11, sticky='nsew')
+        tk.Label(help_frame, text="- Divide 'line length' by 'line length scale'", anchor='nw').grid(column=1, row=12, sticky='nsew')
+        tk.Label(help_frame, text="- Flip the meaning of '+' and '-'", anchor='nw').grid(column=1, row=13, sticky='nsew')
+        tk.Label(help_frame, text="- Increment 'turn angle' by 'turn angle increment'", anchor='nw').grid(column=1, row=14, sticky='nsew')
+        tk.Label(help_frame, text="- Decrement 'turn angle' by 'turn angle increment'", anchor='nw').grid(column=1, row=15, sticky='nsew')
 
         return start_axiom_entry, entry_dict
 
