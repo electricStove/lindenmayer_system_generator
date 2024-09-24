@@ -1,6 +1,7 @@
 # Lindenmayer System Generator
+This project is currently a work in progress. Everything is usable, I am just working on the UI/UX on the main menu. I will also be working on adding zooming and scrolling once your image is generated.
 
-A fun side project that uses Python's `Tkinter` and `Turtle` libraries to create and visualize Lindenmayer Systems (L-Systems). These systems, often used to generate fractals, can be customized by defining a starting axiom and some rules.
+This is a fun side project that uses Python's `Tkinter` and `Turtle` libraries to create and visualize Lindenmayer Systems (L-Systems). These systems, often used to generate fractals, can be customized by defining a starting axiom and some rules.
 
 This is a recreation of an older project I originally built using Unity and C#. This version relies solely on Python's standard library.
 
