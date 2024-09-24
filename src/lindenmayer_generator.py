@@ -20,7 +20,7 @@ class LindenmayerGenerator(turtle.Turtle):
         self.line_width_increment: float =  float(self.starting_vars["line width increment"])
         self.turn_angle: float =  float(self.starting_vars["turn angle"])
         self.turn_angle_increment: float =  float(self.starting_vars["turn angle increment"])
-        self.position_stack: list[turtle.Vec2D] = []
+        self.state_stack: list[tuple[turtle.Vec2D, float]] = []
 
         # Turn the list of rules into a dictionary with the key as the name and value as the rewriting rule
         self.parse_rules(unparsed_rules)
@@ -29,7 +29,8 @@ class LindenmayerGenerator(turtle.Turtle):
         self.step_forward()
 
         turtle.listen()
-        turtle.onkeypress(self.step_forward, "Right")
+        turtle.onkeypress(self.step_forward, "space")
+        turtle.onkeypress(self.step_forward, "w")
         turtle.mainloop()
 
     def step_forward(self):
@@ -50,19 +51,21 @@ class LindenmayerGenerator(turtle.Turtle):
                     self.forward(self.line_length)
                 # Turn left by turning angle
                 case '+':
-                    self.left(self.turn_angle)
+                    self.right(self.turn_angle)
                 # Turn right by turning angle
                 case '-':
-                    self.right(self.turn_angle)
+                    self.left(self.turn_angle)
                 # Reverse direction (ie: turn by 180 degrees)
                 case '|':
                     self.right(180)
                 # Push current drawing state onto stack
                 case '[':
-                    self.position_stack.append(self.position())
+                    self.state_stack.append((self.position(), self.heading()))
                 # Pop current drawing state from the stack
                 case ']':
-                    self.setposition(self.position_stack.pop())
+                    prev_state = self.state_stack.pop()
+                    self.setposition(prev_state[0])
+                    self.setheading(prev_state[1])
                 # Increment the line width by line width increment
                 case  '#':
                     self.line_width += self.line_width_increment
@@ -111,4 +114,4 @@ class LindenmayerGenerator(turtle.Turtle):
         self.line_width_increment =  float(self.starting_vars["line width increment"])
         self.turn_angle =  float(self.starting_vars["turn angle"])
         self.turn_angle_increment =  float(self.starting_vars["turn angle increment"])
-        self.position_stack = []
+        self.state_stack = []
