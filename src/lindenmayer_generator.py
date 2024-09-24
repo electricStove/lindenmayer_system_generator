@@ -107,7 +107,7 @@ class LindenmayerGenerator(turtle.Turtle):
         self.reset()
         self.hideturtle()
         self.speed(0)
-        self.setheading(0)
+        self.setheading(90)
         self.line_length = float(self.starting_vars["line length"])
         self.line_length_scale =  float(self.starting_vars["line length scale"])
         self.line_width =  float(self.starting_vars["line width"])
