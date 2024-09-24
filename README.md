@@ -3,8 +3,6 @@ This project is currently a work in progress. Everything is usable, I am just wo
 
 This is a fun side project that uses Python's `Tkinter` and `Turtle` libraries to create and visualize Lindenmayer Systems (L-Systems). These systems, often used to generate fractals, can be customized by defining a starting axiom and some rules.
 
-This is a recreation of an older project I originally built using Unity and C#. This version relies solely on Python's standard library.
-
 ## References
 - [L-System User Notes](https://paulbourke.net/fractals/lsys/) by Paul Borke
 - [L-System wikipedia page](https://en.wikipedia.org/wiki/L-system)
